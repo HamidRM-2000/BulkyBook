@@ -1,0 +1,158 @@
+﻿@model BulkyBook.Utilities.ProductVM
+
+<div class="container p-0 py-2">
+   <div class="row justify-content-center">
+      <h3>@ViewData["title"]</h3>
+   </div>
+   <form method="post" enctype="multipart/form-data">
+      <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+      <input type="hidden" asp-for="Product.ProId" value="@Model.Product.ProId" />
+      <input type="hidden" asp-for="Product.Image" value="@Model.Product.Image" />
+      <div class="row p-5 container border border-primary rounded">
+         <div id="box">
+            <div class="form-group row ">
+               <div class="col-3 text-info">
+                  <label asp-for="Product.Title" style="font-size:larger;"></label>
+               </div>
+               <div class="col-8">
+                  <input class="form-control" asp-for="Product.Title" />
+                  <span class="text-danger" asp-validation-for="Product.Title"></span>
+               </div>
+            </div>
+            <div class="form-group row">
+               <div class="col-3 text-info">
+                  <label asp-for="Product.Author" style="font-size:larger;"></label>
+               </div>
+               <div class="col-8">
+                  <input class="form-control" asp-for="Product.Author" />
+                  <span class="text-danger" asp-validation-for="Product.Author"></span>
+               </div>
+            </div>
+            <div class="form-group row">
+               <div class="col-3 text-info">
+                  <label asp-for="Product.ISBN" style="font-size:larger;"></label>
+               </div>
+               <div class="col-8">
+                  <input class="form-control" asp-for="Product.ISBN">
+                  <span class="text-danger" asp-validation-for="Product.ISBN"></span>
+               </div>
+            </div>
+            <div class="form-group row">
+               <div class="col-3 text-info">
+                  <label asp-for="Product.Description" style="font-size:larger;"></label>
+               </div>
+               <div class="col-8">
+                  <textarea class="form-control" asp-for="Product.Description"></textarea>
+                  <span class="text-danger" asp-validation-for="Product.Description"></span>
+               </div>
+            </div>
+            <div class="form-group row">
+               <div class="col-3 text-info">
+                  <label asp-for="Product.PriceList" style="font-size:larger;"></label>
+               </div>
+               <div class="col-8">
+                  <input class="form-control" asp-for="Product.PriceList" type="number" />
+                  <span class="text-danger" asp-validation-for="Product.PriceList"></span>
+               </div>
+            </div>
+            <div class="form-group row">
+               <div class="col-3 text-info">
+                  <label asp-for="Product.Price" style="font-size:larger;"></label>
+               </div>
+               <div class="col-8">
+                  <input class="form-control" asp-for="Product.Price" type="number" />
+                  <span class="text-danger" asp-validation-for="Product.Price"></span>
+               </div>
+            </div>
+            <div class="form-group row">
+               <div class="col-3 text-info">
+                  <label asp-for="Product.Price50" style="font-size:larger;"></label>
+               </div>
+               <div class="col-8">
+                  <input class="form-control" asp-for="Product.Price50" type="number" />
+                  <span class="text-danger" asp-validation-for="Product.Price50"></span>
+               </div>
+            </div>
+            <div class="form-group row">
+               <div class="col-3 text-info">
+                  <label asp-for="Product.Price100" style="font-size:larger;"></label>
+               </div>
+               <div class="col-8">
+                  <input class="form-control" asp-for="Product.Price100" type="number" />
+                  <span class="text-danger" asp-validation-for="Product.Price100"></span>
+               </div>
+            </div>
+            <div class="form-group row">
+               <div class="col-3 text-info">
+                  <label asp-for="Product.Category.CatName" style="font-size:larger;"></label>
+               </div>
+               <div class="col-8">
+                  @Html.DropDownListFor(m => m.Product.CatId, Model.Categories, "-- Select a Category", new { @class = "form-control", Id = "category" })
+                  <span class="text-danger" asp-validation-for="Product.CatId"></span>
+               </div>
+            </div>
+            <div class="form-group row">
+               <div class="col-3 text-info">
+                  <label asp-for="Product.CoverType.Name" style="font-size:larger;"></label>
+               </div>
+               <div class="col-8">
+                  @Html.DropDownListFor(m => m.Product.CovId, Model.CoverTypes, "-- Select a CoverType", new { @class = "form-control", Id = "covertype" })
+                  <span class="text-danger" asp-validation-for="Product.CovId"></span>
+               </div>
+            </div>
+            <div class="form-group row">
+               <div class="col-3 text-info">
+                  <label asp-for="Product.Image" style="font-size:larger;"></label>
+               </div>
+               <div class="col-8">
+                  <input asp-for="Product.Image" class="form-control" id="ImgUp" type="file" accept="image/" />
+                  <span class="text-danger" asp-validation-for="Product.Image"></span>
+               </div>
+            </div>
+         </div>
+         @if (Model.Product.ProId != 0)
+         {
+            <div class="col-4 d-flex justify-content-center align-items-center">
+               <img src="~/Images/Products/@Model.Product.Image" class="w-100 rounded" alt="Alternate Text" />
+            </div>
+         }
+         <div class="row pt-1 justify-content-around col-12">
+            @if (Model.Product.ProId == 0)
+            {
+               <button type="submit" asp-action="create" onclick="return validation()" class="btn col-5 btn-outline-success">Create</button>
+            }
+            else
+            {
+               <button type="submit" asp-action="edit" asp-route-id="@Model.Product.ProId" class="btn col-5 btn-outline-warning">Edit</button>
+
+            }
+            <a class="col-5 btn btn-outline-primary" asp-action="index">BackToList</a>
+         </div>
+      </div>
+   </form>
+</div>
+@section Scripts{
+   <partial name="_ValidationScriptsPartial" />
+   <script src="https://cdn.tiny.cloud/1/afxxsdfrnzw9kup3dpnb2kq5xj3yps9ppflscazwd121b4g2/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+   <script>
+      $(document).ready(function () {
+         document.querySelector("input[type='file']").required = true ? @Model.Product.ProId== 0 : false;
+         $("#box").addClass(function () {
+            if (@(Model.Product.ProId)== 0)
+               return "col-10 offset-1";
+            else
+               return "col-8 p-0";
+         });
+         document.querySelector("#category option[value='@Model.Product.CatId']").selected = true;
+         document.querySelector("#covertype option[value='@Model.Product.CovId']").selected = true;
+      });
+      tinymce.init({
+         selector: 'textarea',
+         plugins: 'a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+         toolbar: 'a11ycheck addcomment showcomments casechange checklist code formatpainter pageembed permanentpen table',
+         toolbar_mode: 'floating',
+         tinycomments_mode: 'embedded',
+         tinycomments_author: 'Author name'
+      });
+   </script>
+}

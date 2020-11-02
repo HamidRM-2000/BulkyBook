@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Product>
+<div>
+   <div class="text-center">
+      <h1 class="display-4">Welcome To Bulky Book</h1>
+      <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+   </div>
+   <div class="row justify-content-center">
+      @foreach (var item in Model)
+      {
+         <div class="card my-2 mx-4 mx-sm-2 p-1 col-md-5 col-lg-3 col-xl-3 col-sm-12">
+            <img src="~/Images/Products/@item.Image" class="card-img-top rounded" />
+            <div class="card-body pl-1">
+               <p class="card-title h5"><b style="color:#2c3e50">@item.Title</b></p>
+               <p class="card-title text-primary">by <b>@item.Author</b></p>
+            </div>
+            <div style="padding-left:5px;">
+               <p>List Price: <strike><b class="">$@item.PriceList.ToString("0.00")</b></strike></p>
+            </div>
+            <div style="padding-left:5px;">
+               <p style="color:maroon">As low as: <b class="">$@item.Price100.ToString("0.00")</b></p>
+            </div>
+            <div class="card-footer">
+               <a asp-action="Details" class="btn btn-primary form-control" asp-route-id="@item.ProId">Details</a>
+            </div>
+         </div>
+      }
+   </div>
+</div>

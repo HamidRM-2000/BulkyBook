@@ -1,0 +1,92 @@
+﻿@model Company
+
+<div class="container py-2 px-3">
+   <div class="row justify-content-center">
+      <h3>@ViewData["title"]</h3>
+   </div>
+   <form method="post" enctype="multipart/form-data">
+      <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+      <input type="hidden" asp-for="ComId" value="@Model.ComId" />
+      <div class="p-5 row container border border-primary rounded">
+         <div id="box" class="col-10 offset-1">
+            <div class="form-group row ">
+               <div class="col-3 text-info">
+                  <label asp-for="Name" style="font-size:larger;"></label>
+               </div>
+               <div class="col-8">
+                  <input class="form-control" asp-for="Name" />
+                  <span class="text-danger" asp-validation-for="Name"></span>
+               </div>
+            </div>
+            <div class="form-group row">
+               <div class="col-3 text-info">
+                  <label asp-for="City" style="font-size:larger;"></label>
+               </div>
+               <div class="col-8">
+                  <input class="form-control" asp-for="City" />
+                  <span class="text-danger" asp-validation-for="City"></span>
+               </div>
+            </div>
+            <div class="form-group row">
+               <div class="col-3 text-info">
+                  <label asp-for="State" style="font-size:larger;"></label>
+               </div>
+               <div class="col-8">
+                  <input class="form-control" asp-for="State">
+                  <span class="text-danger" asp-validation-for="State"></span>
+               </div>
+            </div>
+            <div class="form-group row">
+               <div class="col-3 text-info">
+                  <label asp-for="PostalCard" style="font-size:larger;"></label>
+               </div>
+               <div class="col-8">
+                  <input class="form-control" asp-for="PostalCard"></input>
+                  <span class="text-danger" asp-validation-for="PostalCard"></span>
+               </div>
+            </div>
+            <div class="form-group row">
+               <div class="col-3 text-info">
+                  <label asp-for="PhoneNumber" style="font-size:larger;"></label>
+               </div>
+               <div class="col-8">
+                  <input class="form-control" asp-for="PhoneNumber" />
+                  <span class="text-danger" asp-validation-for="PhoneNumber"></span>
+               </div>
+            </div>
+            <div class="form-group row">
+               <div class="col-3 text-info">
+                  <label asp-for="StreetAddress" style="font-size:larger;"></label>
+               </div>
+               <div class="col-8">
+                  <input class="form-control" asp-for="StreetAddress" />
+                  <span class="text-danger" asp-validation-for="StreetAddress"></span>
+               </div>
+            </div>
+            <div class="form-group row">
+               <div class="col-3 text-info">
+                  <label asp-for="IsAuthorizedCompany" style="font-size:larger;"></label>
+               </div>
+               <div class="col-8">
+                  <input type="checkbox" asp-for="IsAuthorizedCompany" />
+               </div>
+            </div>
+            <div class="row pt-1 justify-content-around col-12">
+               @if (Model.ComId == 0)
+               {
+                  <button type="submit" asp-action="create" onclick="return validation()" class="btn col-5 btn-outline-success">Create</button>
+               }
+               else
+               {
+                  <button type="submit" asp-action="edit" asp-route-id="@Model.ComId" class="btn col-5 btn-outline-warning">Edit</button>
+
+               }
+               <a class="col-5 btn btn-outline-primary" asp-action="index">BackToList</a>
+            </div>
+         </div>
+      </div>
+   </form>
+</div>
+@section Scripts{
+   <partial name="_ValidationScriptsPartial" />
+}

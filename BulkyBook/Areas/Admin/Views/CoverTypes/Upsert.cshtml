@@ -1,0 +1,37 @@
+﻿@model CoverType
+
+<div class="container p-4">
+   <div class="row justify-content-center">
+      <h3>@ViewData["title"]</h3>
+   </div>
+   <form method="post">
+      <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+      <div class="col-8 offset-2 p-5 border border-primary">
+         <div class="form-group row">
+            <div class="col-4 text-info">
+               <label asp-for="Name" style="font-size:larger;"></label>
+            </div>
+            <div class="col-8">
+               <input class="form-control" asp-for="Name" type="text" />
+               <span class="text-danger" asp-validation-for="Name"></span>
+            </div>
+            <input type="hidden" asp-for="CovId" value="@Model.CovId" />
+         </div>
+         <div class="row pt-4 justify-content-around">
+            @if (Model.CovId == 0)
+            {
+               <button type="submit" class="btn col-5 btn-outline-success">Create</button>
+            }
+            else
+            {
+               <button type="submit" asp-action="edit" asp-route-id="@Model.CovId" class="btn col-5 btn-outline-warning">Edit</button>
+
+            }
+            <a class="col-5 btn btn-outline-primary" asp-action="index">BackToList</a>
+         </div>
+      </div>
+   </form>
+</div>
+@section Scripts{
+   <partial name="_ValidationScriptsPartial" />
+}
